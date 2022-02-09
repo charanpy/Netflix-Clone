@@ -19,7 +19,7 @@
   height: 100%;
 
   flex-direction: column;
-  margin-top: 6rem /* 96px */;
+  margin-top: 8rem /* 96px */;
 }
 
 .nseriesWrapper {
@@ -51,8 +51,9 @@
 .subTitle {
   font-size: 1.125rem /* 18px */;
   line-height: 1.75rem /* 28px */;
-  color: var(--white10);
-  -webkit-text-stroke: 1px gray; /* width and color */
+  color: var(--gray20);
+  margin-top: 1rem;
+  /* -webkit-text-stroke: 1px gray; width and color */
 }
 
 .playBtnWrapper {

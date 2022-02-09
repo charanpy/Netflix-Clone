@@ -22,9 +22,9 @@ export default function Home({
       <div className={styles.main}>
         <Navbar username='Charan' />
         <Banner
-          title='Clifford the red dog'
+          title='No Way Home'
           subTitle='Superhero,Marvel'
-          imgUrl='/static/clifford.webp'
+          imgUrl='/static/nwh.jpg'
         />
         <div className={styles.sectionWrapper}>
           <SectionCard title='Disney' videos={disneyVideos} size='large' />
@@ -42,10 +42,15 @@ export default function Home({
 }
 
 export async function getServerSideProps() {
-  const disneyVideos = await getVideos('disney trailer');
-  const marvelVideos = await getVideos('marvel');
-  const productivityVideos = await getVideos('productivity');
-  const codingVideos = await getVideos('popular coding');
+  // const disneyVideos = await getVideos('disney trailer');
+  // const marvelVideos = await getVideos('marvel');
+  // const productivityVideos = await getVideos('productivity');
+  // const codingVideos = await getVideos('popular coding');
+
+  const disneyVideos = [];
+  const marvelVideos = [];
+  const productivityVideos = [];
+  const codingVideos = [];
 
   return {
     props: {
