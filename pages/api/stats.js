@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
 import {
   findVideoIdByUser,
   insertStats,
   updateStats,
 } from '../../lib/db/hasura';
+import { verifyToken } from '../../lib/utils';
 
 const stats = async (req, res) => {
   try {
@@ -16,13 +16,13 @@ const stats = async (req, res) => {
       return res.status(400).json({ message: 'Video id is required' });
 
     const token = req.cookies?.token;
-    if (!token) return res.status(403).send({});
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = await verifyToken(token);
 
-    if (!decoded) return res.status(403).send({});
+    console.log(userId);
+    if (!userId) return res.status(403).send({});
 
-    const stats = await findVideoIdByUser(token, decoded.issuer, videoId);
+    const stats = await findVideoIdByUser(token, userId, videoId);
 
     const isStatsExist = stats?.length > 0;
 
@@ -34,7 +34,7 @@ const stats = async (req, res) => {
       const response = await insertStats(token, {
         favourited,
         watched,
-        userId: decoded.issuer,
+        userId,
         videoId,
       });
       return res.status(201).json({
@@ -43,7 +43,7 @@ const stats = async (req, res) => {
     }
     const response = await updateStats(token, {
       favourited,
-      userId: decoded.issuer,
+      userId,
       watched,
       videoId,
     });

@@ -10,6 +10,7 @@ const Navbar = () => {
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [user, setUser] = useState('');
+  const [didToken, setDidToken] = useState('');
 
   const getUser = useCallback(async () => {
     try {
@@ -17,7 +18,10 @@ const Navbar = () => {
       const didToken = await magic.user.getIdToken();
 
       console.log({ didToken });
-      if (user?.email) setUser(user?.email);
+      if (user?.email) {
+        setUser(user?.email);
+        setDidToken(didToken);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,12 +42,18 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const isLoggedOut = await magic.user.logout();
-      if (isLoggedOut) {
-        router.push('/login');
-      }
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${didToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const res = await response.json();
+      console.log(res);
     } catch (error) {
-      console.log(error);
+      console.error('Error logging out', error);
       router.push('/login');
     }
   };
