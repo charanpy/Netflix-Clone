@@ -38,6 +38,21 @@ const Login = () => {
 
     if (!token) return setErrorMessage('Something went wrong');
 
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const loggedInResponse = await response.json();
+
+    if (!loggedInResponse?.done) {
+      setErrorMessage('Something went wrong.Please try again');
+      return;
+    }
+
     router.push('/');
   };
   return (

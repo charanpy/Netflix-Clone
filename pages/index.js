@@ -42,15 +42,12 @@ export default function Home({
 }
 
 export async function getServerSideProps() {
-  // const disneyVideos = await getVideos('disney trailer');
-  // const marvelVideos = await getVideos('marvel');
-  // const productivityVideos = await getVideos('productivity');
-  // const codingVideos = await getVideos('popular coding');
+  const disneyVideos = await getVideos('disney trailer');
+  const marvelVideos = await getVideos('marvel');
+  const productivityVideos = await getVideos('productivity');
+  const codingVideos = await getVideos('popular coding');
 
-  const disneyVideos = [];
-  const marvelVideos = [];
-  const productivityVideos = [];
-  const codingVideos = [];
+  console.log(disneyVideos);
 
   return {
     props: {

@@ -14,6 +14,9 @@ const Navbar = () => {
   const getUser = useCallback(async () => {
     try {
       const user = await magic.user.getMetadata();
+      const didToken = await magic.user.getIdToken();
+
+      console.log({ didToken });
       if (user?.email) setUser(user?.email);
     } catch (error) {
       console.log(error);
