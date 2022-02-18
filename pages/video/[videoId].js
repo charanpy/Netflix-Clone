@@ -69,30 +69,25 @@ const Video = ({ video }) => {
     <div className={styles.container}>
       <NavBar />
 
-      {!video || !Object.keys(video).length ? (
-        <p className={styles.error}>
-          The requested resource is not found or developer could not afford for
-          youtube API as its daily quota exceeded.
-        </p>
-      ) : (
-        <Modal
-          className={styles.modal}
-          isOpen={true}
-          contentLabel='Watch Video'
-          onRequestClose={() => {
-            router.back();
-          }}
-          overlayClassName={styles.overlay}
-        >
-          <iframe
-            id='player'
-            type='text/html'
-            width='100%'
-            className={styles.videoPlayer}
-            height='390'
-            src={`http://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=0`}
-            frameBorder='0'
-          ></iframe>
+      <Modal
+        className={styles.modal}
+        isOpen={true}
+        contentLabel='Watch Video'
+        onRequestClose={() => {
+          router.back();
+        }}
+        overlayClassName={styles.overlay}
+      >
+        <iframe
+          id='player'
+          type='text/html'
+          width='100%'
+          className={styles.videoPlayer}
+          height='390'
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=0`}
+          frameBorder='0'
+        ></iframe>
+        {video && Object.keys(video)?.length ? (
           <div className={styles.likeDislikeBtnWrapper}>
             <div className={styles.likeBtnWrapper}>
               <button onClick={handleToggleLike}>
@@ -107,6 +102,10 @@ const Video = ({ video }) => {
               </div>
             </button>
           </div>
+        ) : (
+          ''
+        )}
+        {video && Object.keys(video)?.length ? (
           <div className={styles.modalBody}>
             <div className={styles.modalBodyContent}>
               <div className={styles.col1}>
@@ -130,8 +129,10 @@ const Video = ({ video }) => {
               </div>
             </div>
           </div>
-        </Modal>
-      )}
+        ) : (
+          ''
+        )}
+      </Modal>
     </div>
   );
 };
