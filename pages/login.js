@@ -86,7 +86,7 @@ const Login = () => {
             ref={emailRef}
             required
           />
-          <p className={styles.userMsg}>{errorMessage && errorMessage}</p>
+          <p className={styles.userMsg}>{errorMessage ? errorMessage : ''}</p>
           <button type='submit' className={styles.loginBtn}>
             {loading ? 'Loading...' : 'Sign In'}
           </button>

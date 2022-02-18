@@ -121,6 +121,16 @@
   padding-left: 1rem /* 48px */;
 }
 
+.error {
+  margin-top: 15%;
+  padding: 1rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 2;
+  font-family: sans-serif;
+  color: #dc2626;
+}
+
 .btnWrapper {
   border-color: var(--white10);
   border-style: solid;

@@ -68,62 +68,70 @@ const Video = ({ video }) => {
   return (
     <div className={styles.container}>
       <NavBar />
-      <Modal
-        className={styles.modal}
-        isOpen={true}
-        contentLabel='Watch Video'
-        onRequestClose={() => {
-          router.back();
-        }}
-        overlayClassName={styles.overlay}
-      >
-        <iframe
-          id='player'
-          type='text/html'
-          width='100%'
-          className={styles.videoPlayer}
-          height='390'
-          src={`http://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=0`}
-          frameBorder='0'
-        ></iframe>
-        <div className={styles.likeDislikeBtnWrapper}>
-          <div className={styles.likeBtnWrapper}>
-            <button onClick={handleToggleLike}>
+
+      {!video || !Object.keys(video).length ? (
+        <p className={styles.error}>
+          The requested resource is not found or developer could not afford for
+          youtube API as its daily quota exceeded.
+        </p>
+      ) : (
+        <Modal
+          className={styles.modal}
+          isOpen={true}
+          contentLabel='Watch Video'
+          onRequestClose={() => {
+            router.back();
+          }}
+          overlayClassName={styles.overlay}
+        >
+          <iframe
+            id='player'
+            type='text/html'
+            width='100%'
+            className={styles.videoPlayer}
+            height='390'
+            src={`http://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=0&rel=0`}
+            frameBorder='0'
+          ></iframe>
+          <div className={styles.likeDislikeBtnWrapper}>
+            <div className={styles.likeBtnWrapper}>
+              <button onClick={handleToggleLike}>
+                <div className={styles.btnWrapper}>
+                  <Like selected={toggleLike} />
+                </div>
+              </button>
+            </div>
+            <button onClick={handleToggleDisLike}>
               <div className={styles.btnWrapper}>
-                <Like selected={toggleLike} />
+                <DisLike selected={toggleDisLike} />
               </div>
             </button>
           </div>
-          <button onClick={handleToggleDisLike}>
-            <div className={styles.btnWrapper}>
-              <DisLike selected={toggleDisLike} />
-            </div>
-          </button>
-        </div>
-        <div className={styles.modalBody}>
-          <div className={styles.modalBodyContent}>
-            <div className={styles.col1}>
-              <p className={styles.publishTime}>{video.publishTime}</p>
-              <p className={styles.title}>{video.title}</p>
-              <p className={styles.description}>{video.description}</p>
-            </div>
-            <div className={styles.col2}>
-              <p className={cls(styles.subText, styles.subTextWrapper)}>
-                <span className={styles.textColor}>Cast:</span>
-                <span className={styles.channelTitle}>
-                  {video.channelTitle}
-                </span>
-              </p>
-              <p className={cls(styles.subText, styles.subTextWrapper)}>
-                <span className={styles.textColor}>View Count:</span>
-                <span className={styles.channelTitle}>
-                  {video.statistics?.viewCount || ''}
-                </span>
-              </p>
+          <div className={styles.modalBody}>
+            <div className={styles.modalBodyContent}>
+              <div className={styles.col1}>
+                <p className={styles.publishTime}>{video.publishTime}</p>
+                <p className={styles.title}>{video.title}</p>
+                <p className={styles.description}>{video.description}</p>
+              </div>
+              <div className={styles.col2}>
+                <p className={cls(styles.subText, styles.subTextWrapper)}>
+                  <span className={styles.textColor}>Cast:</span>
+                  <span className={styles.channelTitle}>
+                    {video.channelTitle}
+                  </span>
+                </p>
+                <p className={cls(styles.subText, styles.subTextWrapper)}>
+                  <span className={styles.textColor}>View Count:</span>
+                  <span className={styles.channelTitle}>
+                    {video.statistics?.viewCount || ''}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </div>
   );
 };
