@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
@@ -67,6 +68,9 @@ const Video = ({ video }) => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>{video?.title || 'Video'}</title>
+      </Head>
       <NavBar />
 
       <Modal
